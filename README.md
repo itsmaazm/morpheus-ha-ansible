@@ -25,7 +25,9 @@ This is a repo of Ansible roles that allows you to provision a High Availablilit
 
 ## Getting Started
 
-The host groups for the `hosts` file are the only place that configuration needs to occur
+Edit group_vars/all replacing values with pertinent data, such as `appliance_url` (value for the FQDN of the vip in front of appliance servers), `rabbitmq_lb` (value for the load balancer ip or FQDN in front of the Rabbit nodes), and any usernames, clusternames or password fields that should be changed.
+
+The host groups for the `hosts` file should be edited for valid ips of target servers.
 
 Here is an example of a valid `hosts` file including the requisite groups:
 ```

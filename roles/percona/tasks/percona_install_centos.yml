@@ -1,7 +1,7 @@
 ---
 - name: Percona | Import Percona Repo
   yum:
-      name: "{{ percona_repo_url }}"
+      name: "{{ percona_repo_url_cent }}"
       state: present
 
 - name: Percona | Install Percona

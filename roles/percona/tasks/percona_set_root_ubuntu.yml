@@ -1,0 +1,12 @@
+---
+- name: Percona | Change Mysql root password
+  mysql_user:
+    name: root
+    password: "{{ mysql_root_pw }}"
+    login_user: root
+    login_password: "{{ mysql_install_pw }}"
+
+
+#- name: Percona | Change Mysql root password
+#  shell: mysqladmin -u root -p{{ mysql_install_pw }} password '{{ mysql_root_pw }}'
+#  ignore_errors: True

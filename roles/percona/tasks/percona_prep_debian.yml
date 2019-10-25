@@ -1,0 +1,13 @@
+---
+- name: Percona Host Mysql client setup
+  yum:
+      name:
+        - xinetd
+        - python-pycurl
+        - python-mysqldb
+        - python-pip
+      state: present
+
+- name: Percona pip install python libs for MySQL
+  pip:
+      name: pymysql

@@ -1,15 +1,32 @@
 ---
 - include_tasks: selinux.yml
+  when: ansible_os_family == 'RedHat'
 
-- include_tasks: percona_install.yml
+- include_tasks: percona_install_centos.yml
+  when: ansible_os_family == 'RedHat'
 
-- include_tasks: percona_prep.yml
+- include_tasks: percona_install_debian.yml
+  when: ansible_os_family == 'Debian'
 
-- include_tasks: percona_set_root.yml
+- include_tasks: percona_prep_centos.yml
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: percona_prep_debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include_tasks: percona_set_root_centos.yml
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: percona_set_root_ubuntu.yml
+  when: ansible_os_family == 'Debian'
 
 - include_tasks: percona_sstuser.yml
 
-- include_tasks: percona_config.yml
+- include_tasks: percona_config_centos.yml
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: percona_config_ubuntu.yml
+  when: ansible_os_family == 'Debian'
 
 - include_tasks: percona_bootstrap.yml
 

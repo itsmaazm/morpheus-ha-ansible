@@ -23,7 +23,7 @@
 
 - name: Percona | Install Percona
   apt: 
-    name: "{{ percona_db_version }}"
+    name: "{{ percona_db_version_ubuntu }}"
     state: present
 
 - name: Percona | Ensuring the Percona Service is running

@@ -21,6 +21,7 @@
   when: ansible_os_family == 'Debian'
 
 - include_tasks: percona_sstuser.yml
+  when: inventory_hostname == "{{ groups['db'][0] }}"
 
 - include_tasks: percona_config_centos.yml
   when: ansible_os_family == 'RedHat'
@@ -28,6 +29,10 @@
 - include_tasks: percona_config_ubuntu.yml
   when: ansible_os_family == 'Debian'
 
-- include_tasks: percona_bootstrap.yml
+- include_tasks: percona_bootstrap_centos.yml
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: percona_bootstrap_ubuntu.yml
+  when: ansible_os_family == 'Debian'
 
 - include_tasks: percona_db_create.yml

@@ -6,4 +6,5 @@
       check_implicit_admin: yes
       login_user: root
       login_password: "{{ mysql_root_pw }}"
+      priv: '*.*:RELOAD,PROCESS,REPLICATION CLIENT,LOCK TABLES'
       state: present

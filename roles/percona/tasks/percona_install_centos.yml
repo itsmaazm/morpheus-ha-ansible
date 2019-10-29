@@ -6,7 +6,7 @@
 
 - name: Percona | Install Percona
   yum: 
-      name: "{{ percona_db_version }}"
+      name: "{{ percona_db_version_centos }}"
       state: present
 
 - name: Percona | Ensuring the Percona Service is running

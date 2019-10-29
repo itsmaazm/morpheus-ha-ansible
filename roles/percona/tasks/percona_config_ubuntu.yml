@@ -1,4 +1,8 @@
 ---
+- name: Percona | Zero config contents
+  shell: |
+    echo "" > /etc/mysql/percona-xtradb-cluster.conf.d/wsrep.cnf
+
 - name: Percona | Config for clustering
   blockinfile:
       dest: /etc/mysql/percona-xtradb-cluster.conf.d/wsrep.cnf

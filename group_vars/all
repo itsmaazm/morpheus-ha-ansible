@@ -1,8 +1,8 @@
 appliance_url: gottagetaway.com
-percona_repo_url_cent: http://www.percona.com/downloads/percona-release/redhat/0.1-6/percona-release-0.1-6.noarch.rpm
+percona_repo_url_cent: https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 percona_repo_url_deb: https://repo.percona.com/apt/percona-release_latest.generic_all.deb
-percona_db_version: percona-xtradb-cluster-server
-#percona_db_version: Percona-XtraDB-Cluster-57
+percona_db_version_ubuntu: percona-xtradb-cluster-server
+percona_db_version_centos: Percona-XtraDB-Cluster-57
 mysql_root_pw: password
 mysql_install_pw: vmware
 sstuser: sstuser

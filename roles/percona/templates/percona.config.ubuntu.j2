@@ -1,0 +1,21 @@
+[mysqld]
+wsrep_provider=/usr/lib/libgalera_smm.so
+
+wsrep_cluster_name={{ wsrep_cluster_name }}
+wsrep_cluster_address=gcomm://{% for minion in groups['db'] %}
+{{ hostvars[minion]['ansible_all_ipv4_addresses'][0] }}{% if not loop.last %},{% endif %}
+{% endfor %}
+
+wsrep_node_name={{ ansible_hostname }}
+wsrep_node_address={{ ansible_default_ipv4.address }}
+
+wsrep_sst_method=xtrabackup-v2
+wsrep_sst_auth={{ sstuser }}:{{ sstpassword }}
+wsrep_sync_wait=2
+pxc_strict_mode=PERMISSIVE
+
+wsrep_log_conflicts
+binlog_format=ROW
+default_storage_engine=InnoDB
+wsrep_slave_threads=8
+innodb_autoinc_lock_mode=2

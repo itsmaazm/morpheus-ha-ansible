@@ -1,5 +1,5 @@
 ---
-- name: RabitMQ | Add IP address of all hosts to all hosts
+- name: RabbitMQ | Add IP address of all hosts to all hosts
   blockinfile:
       dest: /etc/hosts
       block: | 

@@ -1,0 +1,15 @@
+---
+- name: RabbitMQ | Install RabbitMQ-Server
+  apt:
+    name: rabbitmq-server
+
+- name: RabbitMQ | Started and enabled. 
+  systemd:
+     name: rabbitmq-server
+     enabled: yes
+     state: started
+     
+- name: RabbitMQ | checking to see if already clustered
+  stat: 
+    path: /etc/rabbitmq/clustered
+  register: clustered

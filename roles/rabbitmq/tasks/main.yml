@@ -4,15 +4,34 @@
 
 - include_tasks: rabbitmq_etc_hosts.yml
 
+# Ubuntu
+- include_tasks: erlang_socat_ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- include_tasks: rabbitmq_install_ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- include_tasks: rabbitmq_clustering_ubuntu.yml
+  when: 
+    - ansible_distribution == "Ubuntu" 
+    - enable_rabbitmq_clustering and (clustered.stat.exists != True)
+
+# RHEL
 - include_tasks: epel.yml
+  when: ansible_os_family == 'RedHat'
 
-- include_tasks: erlang_socat.yml
+- include_tasks: erlang_socat_centos.yml
+  when: ansible_os_family == 'RedHat'
 
-- include_tasks: rabbitmq_install.yml
+- include_tasks: rabbitmq_install_centos.yml
+  when: ansible_os_family == 'RedHat'
 
-- include_tasks: rabbitmq_clustering.yml
-  when: enable_rabbitmq_clustering and (clustered.stat.exists != True)
+- include_tasks: rabbitmq_clustering_centos.yml
+  when:
+    - ansible_os_family == 'RedHat'
+    - enable_rabbitmq_clustering and (clustered.stat.exists != True)
 
+# Universal
 - include_tasks: rabbitmq_plugins.yml
 
 - include_tasks: rabbitmq_ha_config.yml

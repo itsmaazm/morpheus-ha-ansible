@@ -1,0 +1,64 @@
+---
+- name: RabbitMQ | stopping rabbitmq app
+  command: rabbitmqctl stop_app
+
+- name: RabbitMQ | resetting rabbitmq app
+  command: rabbitmqctl reset
+  
+- name: Rabbit MQ | Stopped. 
+  systemd:
+     name: rabbitmq-server
+     state: stopped
+     
+- name: RabbitMQ | copy erlang cookie
+  template:
+      src: erlang.cookie.j2
+      dest: /var/lib/rabbitmq/.erlang.cookie
+      owner: rabbitmq
+      group: rabbitmq
+      mode: 0400
+      backup: yes
+
+- name: RabbitMQ | restarting rabbitmq-server on master
+  systemd:
+     name: rabbitmq-server
+     state: restarted
+  when: inventory_hostname == "{{ groups['rabbit_cluster'][0] }}"
+
+- name: RabbitMQ | starting rabbitmq app on master
+  command: rabbitmqctl start_app
+  register: cluster_master
+  when: inventory_hostname == "{{ groups['rabbit_cluster'][0] }}"
+
+- name: RabbitMQ | sending sigterm to any running rabbitmq processes
+  shell: pkill -u rabbitmq || true
+  when: inventory_hostname != "{{ groups['rabbit_cluster'][0] }}"
+
+- name: RabbitMQ | restarting rabbitmq-server
+  systemd:
+     name: rabbitmq-server
+     state: restarted
+  when: inventory_hostname != "{{ groups['rabbit_cluster'][0] }}"
+  
+- name: RabbitMQ | stopping rabbitmq app
+  command: rabbitmqctl stop_app
+  when: inventory_hostname != "{{ groups['rabbit_cluster'][0] }}"
+  
+- name: RabbitMQ | resetting rabbitmq app
+  command: rabbitmqctl reset
+  when: inventory_hostname != "{{ groups['rabbit_cluster'][0] }}"
+  
+- name: RabbitMQ | joining rabbitmq cluster
+  command: rabbitmqctl join_cluster 'rabbit@{{ hostvars[groups['rabbit_cluster'][0]]['ansible_hostname'] }}'
+  register: cluster_joined
+  when: inventory_hostname != "{{ groups['rabbit_cluster'][0] }}"
+  
+- name: RabbitMQ | starting rabbitmq app
+  command: rabbitmqctl start_app
+  when: inventory_hostname != "{{ groups['rabbit_cluster'][0] }}"
+
+- name: RabbitMQ | marking as clustered
+  file:
+    path: /etc/rabbitmq/clustered
+    state: touch
+  when: cluster_master.changed or cluster_joined.changed

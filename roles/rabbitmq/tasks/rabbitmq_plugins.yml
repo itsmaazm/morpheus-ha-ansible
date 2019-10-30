@@ -1,20 +1,20 @@
 ---
-- name: RabitMQ | install rabbitMQ admin
+- name: RabbitMQ | install rabbitMQ admin
   rabbitmq_plugin:
       names: "{{ rabbitmq_plugins | join(',') }}"
       state: enabled
   when:
       - rabbitmq_plugins != []
 
-- name: RabitMQ | get the list of active plugins to disable
+- name: RabbitMQ | get the list of active plugins to disable
   command: rabbitmq-plugins list -e -m
   register: result
   when: rabbitmq_plugins == []
 
-- name: RabitMQ | disable plugins if none added in the configuration
+- name: RabbitMQ | disable plugins if none added in the configuration
   rabbitmq_plugin:
-      name={{ item }}
-      state=disabled
+      name: "{{ item }}"
+      state: disabled
   notify: restart rabbitmq-server
   with_items: result.stdout_lines
   when: rabbitmq_plugins == []

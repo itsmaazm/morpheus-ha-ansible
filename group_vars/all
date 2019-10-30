@@ -23,6 +23,7 @@ enable_rabbitmq_clustering: true
 erlang_cookie: LSKNKBELKPSTDBBCHETL
 vhost_name: morpheus
 durable: true
+ubuntu_erlang_repo: "deb http://packages.erlang-solutions.com/ubuntu bionic erlang"
 routing_key: morpheus
 rabbitmq_lb: 54.153.72.250
 rabbitmq_user: morpheus

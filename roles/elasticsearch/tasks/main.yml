@@ -1,7 +1,15 @@
 ---
-- include_tasks: java.yml
+- include_tasks: java_centos.yml
+  when: ansible_os_family == 'RedHat'
 
-- include_tasks: elasticsearch_install.yml
+- include_tasks: elasticsearch_install_centos.yml
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: java_ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- include_tasks: elasticsearch_install_ubuntu.yml
+  when: ansible_os_family == 'Debian'
 
 - include_tasks: elasticsearch_config.yml
 

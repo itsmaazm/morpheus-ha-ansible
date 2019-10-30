@@ -1,0 +1,11 @@
+---
+- name: Elasticsearch | Install Elasticsearch
+  yum:
+      name: "{{ centos_elasticsearch_package }}"
+      state: present
+
+- name: Elasticsearch | Ensuring the Elasticsearch Service is running
+  service:
+      name: elasticsearch
+      state: started
+      enabled: yes

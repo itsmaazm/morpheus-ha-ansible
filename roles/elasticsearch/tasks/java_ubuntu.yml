@@ -1,0 +1,5 @@
+---
+- name: Elasticsearch | Install Java JDK for Elasticsearch. 
+  apt:
+    name: default-jdk
+    state: present

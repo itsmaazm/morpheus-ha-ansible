@@ -1,10 +1,10 @@
 ---
 - name: Morpheus UI | Install Morpheus
-  yum:
-      name: "{{ morpheus_package }}"
+  apt:
+      name: "{{ morpheus_package_ubuntu }}"
       state: present
 
 - name: Morpheus UI | Install Morpheus Offline
-  yum:
-      name: "{{ morpheus_offline_package }}"
+  apt:
+      name: "{{ morpheus_offline_package_ubuntu }}"
       state: present

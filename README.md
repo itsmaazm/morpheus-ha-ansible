@@ -2,7 +2,7 @@
 
 This is a repo of Ansible roles that allows you to provision a High Availablility Morpheus application.
 
-## Architecture
+## HA Architecture
 
 * 2 App servers
 * Odd Number Elasticsearch nodes (will support additional nodes)
@@ -16,12 +16,13 @@ This is a repo of Ansible roles that allows you to provision a High Availablilit
 
 ### Assumptions:
 
-* CentOS 7 only (right now)
-* Entirely separated services (right now)
-* A valid loadbalancer/VIP for RabbitMQ has been configured
-  * Ports and server mappings for ports 5672 and 61613
-* A valid loadbalancer/VIP for application tier servers has been configured
-  * Ports and server mappings for ports 443 and 80
+* CentOS 7.x or Ubuntu 18.04.
+* Entirely separated services.  They can reside on the same sever(s) or not, this is up to the user to follow best practices around Isolation.
+* A valid loadbalancer/VIP for RabbitMQ has been configured.
+  * Ports and server mappings for ports 5672 and 61613.
+* A valid loadbalancer/VIP for application tier servers has been configured.
+  * Ports and server mappings for ports 443 and 80.
+* Shared storage for the application servers has been set up.  Future versions will configure this from NFS paths for you.
 
 ## Getting Started
 

@@ -14,7 +14,7 @@ This is a repo of Ansible roles that allows you to provision a High Availablilit
 
 ![alt text](https://github.com/tadamhicks/morpheus_ha_ansible/blob/master/HA.jpg "Morpheus HA Architecture Example")
 
-### Assumptions:
+### Assumptions
 
 * CentOS 7.x or Ubuntu 18.04.
 * Entirely separated services.  They can reside on the same sever(s) or not, this is up to the user to follow best practices around Isolation.
@@ -31,7 +31,8 @@ Edit group_vars/all replacing values with pertinent data, such as `appliance_url
 The host groups for the `hosts` file should be edited for valid ips of target servers.
 
 Here is an example of a valid `hosts` file including the requisite groups:
-```
+
+```text
 [rabbit_cluster]
 52.52.27.6 ansible_user=slimshady
 13.56.104.200 ansible_user=slimshady
@@ -42,7 +43,7 @@ Here is an example of a valid `hosts` file including the requisite groups:
 54.215.121.50 ansible_user=slimshady
 13.57.169.119 ansible_user=slimshady
 
-[db]	
+[db]
 52.9.94.143 ansible_user=slimshady
 52.9.226.166 ansible_user=slimshady
 52.8.96.0 ansible_user=slimshady
@@ -53,6 +54,7 @@ Here is an example of a valid `hosts` file including the requisite groups:
 ```
 
 Once this has been configured it is very straightforward to run the `morpheus.yml` playbook on these hosts:
-```
+
+```text
 slimshady@localhost:~$ ansible-playbook -i /path/to/hosts morpheus.yml
 ```

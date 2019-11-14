@@ -14,7 +14,7 @@
       login_user: root
       login_password: "{{ mysql_root_pw }}"
       state: present
-      priv: '{{ morpheus_db }}.*:ALL'
+      priv: "{{ morpheus_db }}.*:ALL"
   with_items: "{{ lookup('template', 'percona.morpheus.j2') }}"
   when: inventory_hostname == "{{ groups['db'][0] }}"
     

@@ -1,38 +1,45 @@
 ---
+
+# RHEL family tasks
 - include_tasks: selinux.yml
   when: ansible_os_family == 'RedHat'
 
 - include_tasks: percona_install_centos.yml
   when: ansible_os_family == 'RedHat'
 
-- include_tasks: percona_install_debian.yml
-  when: ansible_os_family == 'Debian'
-
 - include_tasks: percona_prep_centos.yml
   when: ansible_os_family == 'RedHat'
-
-- include_tasks: percona_prep_debian.yml
-  when: ansible_os_family == 'Debian'
 
 - include_tasks: percona_set_root_centos.yml
   when: ansible_os_family == 'RedHat'
 
+# Debian family tasks
+- include_tasks: percona_install_debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include_tasks: percona_prep_debian.yml
+  when: ansible_os_family == 'Debian'
+
 - include_tasks: percona_set_root_ubuntu.yml
   when: ansible_os_family == 'Debian'
 
+# Universal
 - include_tasks: percona_sstuser.yml
-  when: inventory_hostname == "{{ groups['db'][0] }}"
+  when: inventory_hostname == "{{ groups['db'][0] }}" and groups['db'] | length > 1
 
+# RHEL family tasks
 - include_tasks: percona_config_centos.yml
-  when: ansible_os_family == 'RedHat'
-
-- include_tasks: percona_config_ubuntu.yml
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family == 'RedHat' and groups['db'] | length > 1
 
 - include_tasks: percona_bootstrap_centos.yml
-  when: ansible_os_family == 'RedHat'
+  when: ansible_os_family == 'RedHat' and groups['db'] | length > 1
+
+# Debian family tasks
+- include_tasks: percona_config_ubuntu.yml
+  when: ansible_os_family == 'Debian' and groups['db'] | length > 1
 
 - include_tasks: percona_bootstrap_ubuntu.yml
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Debian' and groups['db'] | length > 1
 
+# Universal
 - include_tasks: percona_db_create.yml

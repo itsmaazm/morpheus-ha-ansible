@@ -1,16 +1,23 @@
 ---
 - name: Percona | Import Percona Repo
   yum:
-      name: "{{ percona_repo_url_cent }}"
-      state: present
+    name: "{{ percona_repo_url_cent }}"
+    state: present
 
-- name: Percona | Install Percona
+- name: Percona | Install Percona XtraDB
   yum: 
-      name: "{{ percona_db_version_centos }}"
-      state: present
+    name: "{{ percona_xdb_version_centos }}"
+    state: present
+  when: groups['db'] | length > 1
+
+- name: Percona | Install Percona Server
+  yum:
+    name: "{{ percona_db_version_centos }}"
+    state: present
+  when: groups['db'] | length == 1
 
 - name: Percona | Ensuring the Percona Service is running
   systemd: 
-      name: mysql
-      state: started
-      enabled: true
+    name: mysql
+    state: started
+    enabled: true

@@ -7,3 +7,7 @@ hosts
 perc.yml
 rbit.yml
 es.yml
+myenv/*
+myenv2/*
+hostnames.yml
+test.j2

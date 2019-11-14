@@ -1,5 +1,5 @@
 ---
-- name: install Erlang and Socat
+- name: RabbitMQ | install Erlang and Socat
   yum:
       name:
           - erlang

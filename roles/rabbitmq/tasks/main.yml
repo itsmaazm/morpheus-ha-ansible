@@ -15,6 +15,7 @@
   when: 
     - ansible_distribution == "Ubuntu" 
     - enable_rabbitmq_clustering and (clustered.stat.exists != True)
+    - groups['rabbit_cluster'] | length > 1
 
 # RHEL
 - include_tasks: epel.yml
@@ -30,6 +31,7 @@
   when:
     - ansible_os_family == 'RedHat'
     - enable_rabbitmq_clustering and (clustered.stat.exists != True)
+    - groups['rabbit_cluster'] | length > 1
 
 # Universal
 - include_tasks: rabbitmq_plugins.yml

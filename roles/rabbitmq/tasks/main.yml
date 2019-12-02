@@ -36,7 +36,9 @@
 # Universal
 - include_tasks: rabbitmq_plugins.yml
 
+- include_tasks: rabbitmq_user.yml
+
 - include_tasks: rabbitmq_ha_config.yml
-  when: config_rabbitmq_ha and enable_rabbitmq_clustering
+  when: groups['rabbit_cluster'] | length > 1
 
 - include_tasks: rabbitmq_queue_policy.yml

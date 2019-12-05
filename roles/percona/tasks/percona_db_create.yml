@@ -4,6 +4,9 @@
       name: "{{ morpheus_db }}"
       login_user: root
       login_password: "{{ mysql_root_pw }}"
+      #ssl_ca: "{{cert_dest_path}}/{{tls_ca_cert}}"
+      #ssl_cert: "{{cert_dest_path}}/{{inventory_hostname_short}}.pem"
+      #ssl_key: "{{cert_dest_path}}/{{inventory_hostname_short}}.key"
   when: inventory_hostname == "{{ groups['db'][0] }}"
 
 - name: Percona | create the service user

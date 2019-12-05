@@ -1,4 +1,19 @@
 [mysqld]
+bind-address={{percona_bind_ip}}
+
+# Require clients to connect using TLS
+#require_secure_transport = ON
+
+# @AB TODO: MySQL Shell and Workbench CE currently uses yaSSL instead of OpenSSL, 
+# therefore cannot connect when MySQL server configured for TLSv1.2 exclusively
+# tls_version=TLSv1.2
+tls_version=TLSv1.1,TLSv1.2
+
+# TLS certificates
+ssl-ca={{cert_dest_path}}/{{tls_ca_cert}}
+ssl-cert={{cert_dest_path}}/{{inventory_hostname_short}}.pem
+ssl-key={{cert_dest_path}}/{{inventory_hostname_short}}.key
+
 wsrep_provider=/usr/lib64/galera3/libgalera_smm.so
 
 wsrep_cluster_name={{ wsrep_cluster_name }}

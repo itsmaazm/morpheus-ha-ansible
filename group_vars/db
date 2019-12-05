@@ -1,0 +1,40 @@
+percona_repo_url_cent: https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+percona_repo_url_deb: https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+percona_db_version_ubuntu: percona-xtradb-cluster-server
+percona_xdb_version_centos: Percona-XtraDB-Cluster-57
+percona_db_version_centos: Percona-Server-server-57
+mysql_root_pw: P@55w0rd!
+mysql_install_pw: vmware
+sstuser: sstuser
+sstpassword: password
+wsrep_cluster_name: morpheus
+morpheus_db: morpheusdb
+morpheus_db_user: morpheus
+morpheus_db_pass: Pa55w0rd!
+
+percona_bind_ip: 0.0.0.0
+generate_ca_cert: true
+generate_client_cert: true
+generate_server_cert: true
+
+# -------\
+# CA CERT
+# -------
+cert_dest_path: /var/lib/mysql-certs
+tls_ca_cert: my-ca.pem
+tls_ca_csr: my-ca.csr
+tls_ca_key: my-ca.key
+tls_ca_country: CA
+tls_ca_state: Ontario
+tls_ca_locality: Toronto
+tls_ca_organization: My Company Inc.
+tls_ca_organizationalunit: IT
+tls_ca_commonname: My Certificate Authority
+
+# -----------
+# CLIENT CERT
+# -----------
+tls_client_cert: my-client.pem
+tls_client_key: my-client.key
+tls_client_csr: my-client.csr
+tls_client_commonname: My Client

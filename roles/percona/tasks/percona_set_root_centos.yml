@@ -4,6 +4,7 @@
   register: rootpass
   ignore_errors: True
 
+  
 - name: Percona | Change Percona Root Pass
   shell:
       cmd: | 

@@ -28,8 +28,8 @@
   when:  groups['db'] | length > 1
 
 # RHEL family tasks
-- include_tasks: percona_tlsgen_centos.yml
-  when: ansible_os_family == 'RedHat'
+#- include_tasks: percona_tlsgen_centos.yml
+#  when: ansible_os_family == 'RedHat'
 
 - include_tasks: percona_config_centos.yml
   when: ansible_os_family == 'RedHat' and groups['db'] | length > 1

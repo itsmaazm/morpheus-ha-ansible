@@ -10,6 +10,40 @@
       state: started
   when: inventory_hostname == "{{ groups['db'][0] }}"
 
+- name: Percona | Fetch SSL certs
+  fetch:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    flat: yes
+  with_items:
+    - { src: '/var/lib/mysql/ca.pem', dest: 'certs/' }
+    - { src: '/var/lib/mysql/server-cert.pem', dest: 'certs/' }
+    - { src: '/var/lib/mysql/server-key.pem', dest: 'certs/' }    
+  when: inventory_hostname == "{{ groups['db'][0] }}"
+
+- name: Percona | Push SSL certs 1
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: mysql
+    group: mysql
+    mode: 0644
+    #seuser: system_u
+    #setype: mysql_db_t
+  with_items:
+      - { src: 'certs/server-cert.pem' , dest: '/var/lib/mysql/server-cert.pem' }
+      - { src: 'certs/ca.pem', dest: '/var/lib/mysql/ca.pem' }
+  when: inventory_hostname != "{{ groups['db'][0] }}"
+
+- name: Percona | Push SSL certs 2
+  copy:
+    src: 'certs/server-key.pem'
+    dest: '/var/lib/mysql/server-key.pem'
+    owner: mysql
+    group: mysql
+    mode: 0600
+  when: inventory_hostname != "{{ groups['db'][0] }}"
+
 - name: Percona | join worker nodes
   systemd:
       name: mysql

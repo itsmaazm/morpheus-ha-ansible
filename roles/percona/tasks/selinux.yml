@@ -13,7 +13,7 @@
 
 - name: Percona | Copy SELinux type enforcement file
   copy:
-    src: ./templates/PXC.te
+    src: ./files/PXC.te
     dest: /tmp
 
 - name: Percona | Compile SELinux module file

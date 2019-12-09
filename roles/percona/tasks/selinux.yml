@@ -1,9 +1,35 @@
 ---
-- name: Percona | Disable SELinux at next reboot
-  selinux:
-    state: disabled
+- name: Percona | SELinux add ports
+  seport:
+    ports: 4444, 4567, 4568
+    proto: tcp
+    setype: mysqld_port_t
+    state: present
 
-- name: Percona | Set SELinux in permissive mode until the machine is rebooted
-  command: setenforce 0
-  ignore_errors: true
-  changed_when: false
+- name: Percona | Install SELinux tools
+  yum:
+    name: policycoreutils-python
+    state: installed
+
+- name: Percona | Copy SELinux type enforcement file
+  copy:
+    src: ./templates/PXC.te
+    dest: /tmp
+
+- name: Percona | Compile SELinux module file
+  command: checkmodule -M -m -o /tmp/PXC.mod /tmp/PXC.te
+
+- name: Percona | Build SELinux policy package
+  command: semodule_package -o /tmp/PXC.pp -m /tmp/PXC.mod
+
+- name: Percona | Load SELinux policy package
+  command: semodule -i /tmp/PXC.pp
+
+  #- name: Percona | Disable SELinux at next reboot
+  #selinux:
+  #  state: disabled
+
+  #- name: Percona | Set SELinux in permissive mode until the machine is rebooted
+  #command: setenforce 0
+  #ignore_errors: true
+  #changed_when: false

@@ -19,7 +19,9 @@
     - { src: '/var/lib/mysql/ca.pem', dest: 'db_certs/' }
     - { src: '/var/lib/mysql/server-cert.pem', dest: 'db_certs/' }
     - { src: '/var/lib/mysql/server-key.pem', dest: 'db_certs/' }    
-  when: inventory_hostname == "{{ groups['db'][0] }}"
+  when: 
+    - inventory_hostname == "{{ groups['db'][0] }}"
+    - self_signed
 
 - name: Percona | Push SSL certs 1
   copy:
@@ -33,7 +35,6 @@
   with_items:
       - { src: 'db_certs/server-cert.pem' , dest: '/var/lib/mysql/server-cert.pem' }
       - { src: 'db_certs/ca.pem', dest: '/var/lib/mysql/ca.pem' }
-  when: inventory_hostname != "{{ groups['db'][0] }}"
 
 - name: Percona | Push SSL certs 2
   copy:
@@ -42,7 +43,6 @@
     owner: mysql
     group: mysql
     mode: 0600
-  when: inventory_hostname != "{{ groups['db'][0] }}"
 
 - name: Percona | join worker nodes
   systemd:

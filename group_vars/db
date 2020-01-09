@@ -16,6 +16,7 @@ percona_bind_ip: 0.0.0.0
 generate_ca_cert: true
 generate_client_cert: true
 generate_server_cert: true
+self_signed: true
 
 # -------\
 # CA CERT
